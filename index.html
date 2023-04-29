@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Memory Chess Game</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>⭐</text></svg>">
+
+    </script>
+</head>
+
+<body>
+    <h1 id="game-level">Memory Chess Game</h1>
+    <section class="grid-container">
+        <div class="grid-card" data-id="0"></div>
+        <div class="grid-card" data-id="1"></div>
+        <div class="grid-card" data-id="2"></div>
+        <div class="grid-card" data-id="3"></div>
+        <div class="grid-card" data-id="4"></div>
+        <div class="grid-card" data-id="5"></div>
+    </section>
+
+    <!-- Game Status Section » begins -->
+    <footer class="status">
+        <div id="status-block">
+            Matched: <span id="match">0</span> Moves: <span id="moves">0</span> Time: <span id="timer">0:00</span>
+        </div>
+        <div id="restart-block">
+            <input type="checkbox" id="cb_mode_classic">
+            <label for="cb_mode_classic"> Classic&nbsp;</label>
+            <button class="game-restart" onclick="App.startGame('4x5');">Game 4 &times; 5</button>
+            <button class="game-restart" onclick="App.startGame('5x6');">Game 5 &times; 6</button>
+        </div>
+    </footer>
+    <!-- Game Status Section » ends -->
+
+    <!-- Game Over modal dialog box » begins -->
+    <div id="popup-dlg" class="overlay">
+        <div class="popup">
+            <h2>Game Over</h2>
+            <a class="close" href="#" onclick="App.closeDialog();">&times;</a>
+            <div class="content">
+                <p>🎉 Congratulations! You won the game.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Game Over modal dialog box » ends -->
+
+    <script type="module" src="./js/game.js"></script>
+    <script>
+        const APP_NAME = "MemoryChess";
+
+        const GAME_MODE = "gameMode";
+        const GAME_LEVEL = "gameLevel";
+
+        const MODE_MODERN = "mode_modern";
+        const MODE_CLASSIC = "mode_classic";
+
+        // disable right click
+        document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+        });
+
+        // restore checkbox state when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            const gameMode = window.sessionStorage.getItem(GAME_MODE);
+            if (gameMode === MODE_CLASSIC) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+            console.log('checkbox value restored -> ' + checkbox.checked);
+        });
+
+        // Start the Game
+        const App = (function () {
+            // private
+            const about = "MemoryChess Game App";
+            const author = "Siken M. Dongol";
+            const modified = "Apr 29, 2023";
+
+            // public
+            return {
+                about,
+                author,
+                modified,
+                startGame: (level) => {
+                    // set the sessionStorage [gameLevel]
+                    window.sessionStorage.setItem(GAME_LEVEL, level);
+                    location.reload(true);
+                },
+                closeDialog: () => {
+                    document.getElementById("popup-dlg").remove("showme");
+                    // show the [Restart] game block & hide [Status] block
+                    document.getElementById("status-block").style.display = "none";
+                    document.getElementById("restart-block").style.display = "block";
+                },
+            };
+        })();
+        console.table([App.about, App.author]);
+
+        const checkbox = document.getElementById("cb_mode_classic");
+        const label = document.querySelector("label[for=cb_mode_classic]");
+
+        label.addEventListener("click", toggleCelebMode);
+        checkbox.addEventListener("click", toggleCelebMode);
+
+        function toggleCelebMode() {
+            const gameMode = (checkbox.checked == true) ? MODE_CLASSIC : MODE_MODERN;
+            // set the sessionStorage [gameMode]
+            window.sessionStorage.setItem(GAME_MODE, gameMode);
+        }
+
+        // saving current state of the game when tab is closed
+        window.addEventListener('beforeunload', function () {
+            const gameMode = window.sessionStorage.getItem(GAME_MODE);
+            const gameLevel = window.sessionStorage.getItem(GAME_LEVEL);
+            const gameState = {
+                mode: gameMode ?? MODE_CLASSIC,
+                level: gameLevel ?? "4x5",
+            };
+
+            localStorage.setItem(APP_NAME, JSON.stringify(gameState));
+        });
+
+    </script>
+</body>
+
+</html>

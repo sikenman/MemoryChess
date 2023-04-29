@@ -1,0 +1,225 @@
+:root {
+  --card-cols: 5;
+  --card-rows: 6;
+  --card-divisior: 7.3;
+  --card-color: #96bc4b;
+  --card-color-light: #eeeed2;
+  --status-text-color: white;
+  --shadow-color: #666;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* prevent text selection */
+  -webkit-user-select: none; /* for Safari */
+  user-select: none;
+  background-color: #323232;
+  border-bottom: 0px dotted orangered;
+  min-width: 480px;
+}
+
+h1 {
+  color: var(--card-color-light);
+  font-size: 2.8rem;
+  line-height: 2.4rem;
+  text-align: center;
+  text-shadow: 2px 2px 3px var(--shadow-color);
+}
+
+.grid-container {
+  margin-top: 0;
+  /* following margin left/right will be applied if
+  viewport width is between (980 px and 1439px) */
+  margin-left: 10%;
+  margin-right: 10%;
+
+  display: grid;
+  grid-template-columns: repeat(var(--card-cols), 1fr);
+  grid-template-rows: repeat(var(--card-rows), 1fr);
+  gap: 0;
+  border: 0px dotted silver;
+}
+
+.grid-card {
+  cursor: pointer;
+  font-size: 5.3rem;
+  /*border-radius: 1rem;*/
+  min-width: 8rem;
+  min-height: 8rem;
+  background-color: #ddd;
+  border: 1px solid #d2d2d2;
+  height: calc(100vh / var(--card-divisior));
+
+  /* show emoji at the center */
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-card img.pic200 {
+  width: auto;
+  height: 90%;
+  overflow: hidden;
+}
+
+@media (width < 980px) {
+  .grid-container {
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+  h1 {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+
+  .grid-card img.pic200 {
+    width: 98%;
+    height: auto;
+  }
+}
+
+@media (width > 1439px) {
+  .grid-container {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+
+  .grid-card img.pic200 {
+    width: auto;
+    height: 90%;
+  }
+}
+
+/* Card flip animation */
+.grid-card.show-animation {
+  transition: transform 0.6s ease;
+}
+
+.grid-card:nth-child(odd).clicked {
+  border-color: var(--card-color);
+  background-color: var(--card-color);
+}
+
+.grid-card:nth-child(even).clicked {
+  border-color: var(--card-color-light);
+  background-color: var(--card-color-light);
+}
+
+.grid-card.clicked.show-animation {
+  transform: rotateY(180deg);
+}
+
+.grid-card.matched {
+  border: 1px solid var(--status-text-color);
+}
+.grid-card.matched.show-animation {
+  transform: rotateY(0deg);
+}
+
+footer.status {
+  color: whitesmoke;
+  padding: 0.5rem;
+  font-size: 2rem;
+  line-height: 2.2rem;
+  text-align: center;
+  text-shadow: 1px 1px 2px var(--shadow-color);
+}
+
+#status-block {
+  padding: 0.5rem;
+}
+
+#match,
+#moves {
+  color: var(--status-text-color);
+  font-weight: normal;
+}
+
+#timer {
+  color: var(--card-color-light);
+}
+
+#status-block {
+  display: block;
+}
+
+/* hidden at load */
+#restart-block {
+  display: none;
+}
+
+#restart-block label {
+  font-size: 1.5rem;
+}
+
+/* Reload Buttons */
+button.game-restart {
+  font-size: 1.4rem;
+  width: 14rem;
+  height: 3.6rem;
+  padding: 0.3rem;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+/* Pop-up dialog box */
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay.showme {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 40vh auto;
+  padding: 16px;
+  background: #fff;
+  border-radius: 1.5rem;
+  width: 40%;
+  position: relative;
+  transition: all 4s ease-in-out;
+}
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  color: var(--status-text-color);
+  font-size: 1.5rem;
+}
+.popup .close {
+  position: absolute;
+  top: 0.3rem;
+  right: 1rem;
+  transition: all 300ms;
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: var(--card-color);
+}
+.popup .content {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  text-align: center;
+  overflow: auto;
+}
+
+@media (width < 768px) {
+  .popup {
+    width: 70%;
+    transition: all 3s ease-in-out;
+  }
+}
