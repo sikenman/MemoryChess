@@ -90,13 +90,14 @@ const MemoryGame = (function () {
       // we dynamically generate remaining divs for the game
       let parentDiv = document.querySelector(".grid-container");
 
-      for (let i = 3; i < rows * cols; i++) {
+      const totalGrid = rows * cols;
+      for (let i = 3; i < totalGrid; i++) {
         let newDiv = document.createElement("div");
         newDiv.classList.add("grid-card");
         // giving rounded corners to the grid at present at four corners
         if (i === cols - 1) newDiv.classList.add("top-right-grid");
-        if (i === rows * cols + 1 - rows) newDiv.classList.add("bottom-left-grid");
-        if (i === rows * cols - 1) newDiv.classList.add("last-grid");
+        if (i === totalGrid + 1 - rows) newDiv.classList.add("bottom-left-grid");
+        if (i === totalGrid - 1) newDiv.classList.add("last-grid");
 
         newDiv.dataset.id = i;
         parentDiv.appendChild(newDiv);
@@ -215,10 +216,12 @@ const MemoryGame = (function () {
 
     const picFilePattern = /[wbo][pnbrkq]/;
     let picPath = null;
-    picPath = MemoryGame.gameMode === Game.MODE_CLASSIC ? "chess2" : "chess1";
+    picPath = MemoryGame.gameMode === Game.MODE_CLASSIC ? "chess3" : "chess1";
 
     if (count === 0) {
-      /* code block hidden */
+      firstPiece = MemoryGame.cardPairs[this.dataset.id];
+
+      /* code goes here */
     } else if (count === 1) {
       secondPiece = MemoryGame.cardPairs[this.dataset.id];
 
@@ -228,7 +231,7 @@ const MemoryGame = (function () {
         e.target.textContent = secondPiece;
       }
 
-      /* code block hidden */
+      /* code goes here */
     }
   }
 })();
