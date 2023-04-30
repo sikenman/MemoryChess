@@ -17,7 +17,7 @@ const MemoryGame = (function () {
 
   const about = "MemoryChess Game Core";
   const author = "Siken M. Dongol";
-  const modified = "Apr 29, 2023";
+  const modified = "Apr 28-29, 2023";
 
   // public methods
   return {
@@ -68,7 +68,7 @@ const MemoryGame = (function () {
       console.table(memoryGameObj);
 
       let gameTitle = null;
-      let [cols, rows, cardDivisor] = [5, 6, null];
+      let [cols, rows, cardDivisor] = [4, 5, null];
 
       switch (MemoryGame.gameLevel) {
         case Game.LEVEL_4_X_5:
@@ -90,9 +90,14 @@ const MemoryGame = (function () {
       // we dynamically generate remaining divs for the game
       let parentDiv = document.querySelector(".grid-container");
 
-      for (let i = 6; i < rows * cols; i++) {
+      for (let i = 3; i < rows * cols; i++) {
         let newDiv = document.createElement("div");
         newDiv.classList.add("grid-card");
+        // giving rounded corners to the grid at present at four corners
+        if (i === cols - 1) newDiv.classList.add("top-right-grid");
+        if (i === rows * cols + 1 - rows) newDiv.classList.add("bottom-left-grid");
+        if (i === rows * cols - 1) newDiv.classList.add("last-grid");
+
         newDiv.dataset.id = i;
         parentDiv.appendChild(newDiv);
       }
@@ -183,14 +188,47 @@ const MemoryGame = (function () {
     MemoryGame.gameMode = Game.MODE_CLASSIC;
     MemoryGame.gameLevel = Game.LEVEL_4_X_5;
   }
-  console.log(MemoryGame.gameLevel);
   MemoryGame.cardPairs = getChess(MemoryGame.gameLevel);
-
   console.log(MemoryGame.cardPairs);
+
   MemoryGame.initGame();
   MemoryGame.startTimer();
 }
 
-/* core functions follows 
-...
-*/
+(function () {
+  let [count, gameScore, gameMoves] = [0, 0, 0];
+
+  let [firstClick, secondClick] = [null, null];
+  let [firstPiece, secondPiece] = [null, null];
+
+  const gridItems = document.querySelectorAll(".grid-card");
+  gridItems.forEach((item) => {
+    item.addEventListener("click", handleClick);
+  });
+
+  function handleClick(e) {
+    gameMoves++;
+    // display games moves (2 clicks = 1 move)
+    if (gameMoves % 2 == 0) {
+      document.getElementById("moves").innerHTML = Number(gameMoves / 2);
+    }
+
+    const picFilePattern = /[wbo][pnbrkq]/;
+    let picPath = null;
+    picPath = MemoryGame.gameMode === Game.MODE_CLASSIC ? "chess2" : "chess1";
+
+    if (count === 0) {
+      /* code block hidden */
+    } else if (count === 1) {
+      secondPiece = MemoryGame.cardPairs[this.dataset.id];
+
+      if (secondPiece.match(picFilePattern)) {
+        e.target.innerHTML = `<img class="pic200" src="./pics/${picPath}/${secondPiece}.png" />`;
+      } else {
+        e.target.textContent = secondPiece;
+      }
+
+      /* code block hidden */
+    }
+  }
+})();

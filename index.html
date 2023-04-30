@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Memory Chess Game</title>
+    <title>MemoryChess Game</title>
     <link rel="stylesheet" type="text/css" href="styles/main.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>⭐</text></svg>">
@@ -15,14 +15,11 @@
 </head>
 
 <body>
-    <h1 id="game-level">Memory Chess Game</h1>
+    <h1 id="game-level">MemoryChess Game</h1>
     <section class="grid-container">
-        <div class="grid-card" data-id="0"></div>
+        <div class="grid-card first-grid" data-id="0"></div>
         <div class="grid-card" data-id="1"></div>
         <div class="grid-card" data-id="2"></div>
-        <div class="grid-card" data-id="3"></div>
-        <div class="grid-card" data-id="4"></div>
-        <div class="grid-card" data-id="5"></div>
     </section>
 
     <!-- Game Status Section » begins -->
@@ -74,7 +71,7 @@
             } else {
                 checkbox.checked = false;
             }
-            console.log('checkbox value restored -> ' + checkbox.checked);
+            //console.log('checkbox value restored -> ' + checkbox.checked);
         });
 
         // Start the Game

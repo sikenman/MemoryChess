@@ -38,3 +38,10 @@ function getChess5x6() {
   const pair = shuffleArray(picsArray);
   return pair;
 }
+
+/* Note:
+  ok -> blank placeholder
+  wk/bk -> white king/black king
+  wp/bp -> white pawn/black pawn
+  wn/bn -> black knight and so on...
+*/

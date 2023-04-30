@@ -4,7 +4,7 @@
   --card-divisior: 7.3;
   --card-color: #96bc4b;
   --card-color-light: #eeeed2;
-  --status-text-color: white;
+  --status-text-color: whitesmoke;
   --shadow-color: #666;
 }
 
@@ -39,17 +39,16 @@ h1 {
   grid-template-columns: repeat(var(--card-cols), 1fr);
   grid-template-rows: repeat(var(--card-rows), 1fr);
   gap: 0;
-  border: 0px dotted silver;
+  border: 0px solid silver;
 }
 
 .grid-card {
   cursor: pointer;
-  font-size: 5.3rem;
-  /*border-radius: 1rem;*/
+  font-size: 5rem;
   min-width: 8rem;
   min-height: 8rem;
-  background-color: #ddd;
-  border: 1px solid #d2d2d2;
+  background-color: whitesmoke;
+  border: 1px solid #d9d9d9;
   height: calc(100vh / var(--card-divisior));
 
   /* show emoji at the center */
@@ -61,8 +60,21 @@ h1 {
 
 .grid-card img.pic200 {
   width: auto;
-  height: 90%;
+  height: auto;
   overflow: hidden;
+}
+
+.first-grid {
+  border-top-left-radius: 1.5rem;
+}
+.top-right-grid {
+  border-top-right-radius: 1.5rem;
+}
+.bottom-left-grid {
+  border-bottom-left-radius: 1.5rem;
+}
+.last-grid {
+  border-bottom-right-radius: 1.5rem;
 }
 
 @media (width < 980px) {
@@ -74,11 +86,6 @@ h1 {
     font-size: 2.5rem;
     line-height: 2.5rem;
   }
-
-  .grid-card img.pic200 {
-    width: 98%;
-    height: auto;
-  }
 }
 
 @media (width > 1439px) {
@@ -86,16 +93,6 @@ h1 {
     margin-left: 20%;
     margin-right: 20%;
   }
-
-  .grid-card img.pic200 {
-    width: auto;
-    height: 90%;
-  }
-}
-
-/* Card flip animation */
-.grid-card.show-animation {
-  transition: transform 0.6s ease;
 }
 
 .grid-card:nth-child(odd).clicked {
@@ -108,12 +105,16 @@ h1 {
   background-color: var(--card-color-light);
 }
 
+/* Card flip animation */
+.grid-card.show-animation {
+  transition: transform 0.6s ease;
+}
 .grid-card.clicked.show-animation {
   transform: rotateY(180deg);
 }
 
 .grid-card.matched {
-  border: 1px solid var(--status-text-color);
+  border: 1px solid var(--status-text-color); /* need to check */
 }
 .grid-card.matched.show-animation {
   transform: rotateY(0deg);
