@@ -7,6 +7,7 @@ Memory game with chess pieces.
   - User has to match same colored pawn, knight and bishop.
   - User has to match different colored queen and king.
   - User can only match black and white king at the last.
+    - the game ends with flipping animation of the kings.
   - Once kings are matched, the game is won.
 - Two sets of chess piece are available at each level.
   - User can toggle between classic mode or modern mode.

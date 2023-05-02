@@ -73,7 +73,7 @@ const MemoryGame = (function () {
       switch (MemoryGame.gameLevel) {
         case Game.LEVEL_4_X_5:
           gameTitle = "4 × 5 Game";
-          [cols, rows, cardDivisor] = [4, 5, 6.2];
+          [cols, rows, cardDivisor] = [4, 5, 6.0];
           break;
         case Game.LEVEL_5_X_6:
           gameTitle = "5 × 6 Game";
@@ -100,6 +100,7 @@ const MemoryGame = (function () {
         if (i === totalGrid - 1) newDiv.classList.add("last-grid");
 
         newDiv.dataset.id = i;
+        newDiv.dataset.matched = "false";
         parentDiv.appendChild(newDiv);
       }
 
@@ -219,9 +220,9 @@ const MemoryGame = (function () {
     picPath = MemoryGame.gameMode === Game.MODE_CLASSIC ? "chess3" : "chess1";
 
     if (count === 0) {
-      firstPiece = MemoryGame.cardPairs[this.dataset.id];
-
+      
       /* code goes here */
+
     } else if (count === 1) {
       secondPiece = MemoryGame.cardPairs[this.dataset.id];
 
