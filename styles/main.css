@@ -17,7 +17,7 @@ body {
   user-select: none;
   background-color: #323232;
   border-bottom: 0px dotted orangered;
-  min-width: 480px;
+  min-width: 412px;
 }
 
 h1 {
@@ -46,7 +46,6 @@ h1 {
 
 .grid-card {
   cursor: pointer;
-  font-size: 5rem;
   min-width: 8rem;
   min-height: 8rem;
   background-color: whitesmoke;
@@ -90,20 +89,44 @@ h1 {
   }
 }
 
+@media (width < 413px) {
+  .grid-container {
+    margin: 2vh 0 2vh 0;
+    width: 100%;
+    border: 0px dashed cadetblue;
+  }
+  .grid-card {
+    cursor: pointer;
+    min-width: 80px;
+    min-height: 80px;
+    width: 100%;
+    height: calc(100vh / 9);
+  }
+  h1 {
+    padding: 0.6rem 0.2rem;
+    font-size: 2rem;
+    line-height: 2.4rem;
+  }
+  footer.status {
+    font-size: 1.7rem;
+    line-height: 1.8rem;
+  }
+}
+
 @media (width > 1439px) {
   .grid-container {
     margin-left: 20%;
     margin-right: 20%;
   }
 }
-
+/*
 @media (height < 860px) {
   .grid-card img.pic200 {
     width: auto;
-    height: 98%;
+    height: auto;
     overflow: hidden;
   }
-}
+}*/
 
 .grid-card:nth-child(odd).clicked {
   border-color: var(--card-color);
@@ -137,6 +160,13 @@ footer.status {
   line-height: 2.2rem;
   text-align: center;
   text-shadow: 1px 1px 2px var(--shadow-color);
+}
+
+@media (width < 413px) {
+  footer.status {
+    font-size: 1.7rem;
+    line-height: 1.8rem;
+  }
 }
 
 #status-block {
@@ -174,6 +204,15 @@ button.game-restart {
   padding: 0.3rem;
   border-radius: 0.5em;
   cursor: pointer;
+}
+
+@media (width < 413px) {
+  button.game-restart {
+    font-size: 1.3rem;
+    width: 8.2rem;
+    height: 2.8rem;
+    padding: 0.3rem;
+  }
 }
 
 /* Pop-up dialog box */
